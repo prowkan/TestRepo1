@@ -2,7 +2,7 @@
 
 int main()
 {
-	std::cout << "Òåñò, òåñò, òåñò." << std::endl;
+	std::cout << "Ğ¢ĞµÑÑ‚, Ñ‚ĞµÑÑ‚, Ñ‚ĞµÑÑ‚." << std::endl;
 
 	return 0;
 }
