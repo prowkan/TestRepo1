@@ -116,6 +116,8 @@ int main()
 
 	Range arrayRanges[] = { { -10, 10 }, { -1'000, 1'000 }, { -100'000, 100'000 } };
 
+	const int numRuns = 5;
+
 	const int arraySizesCount = _countof(arraySizes);
 	const int arrayRangesCount = _countof(arrayRanges);
 
@@ -160,13 +162,20 @@ int main()
 
 			std::cout << "Testing array of " << arraySizes[arraySizeIndex] << " elements (range: [" << arrayRanges[arrayRangeIndex].minValue << ", " << arrayRanges[arrayRangeIndex].maxValue << "]): ";
 
-			const std::chrono::time_point timeBegin = std::chrono::high_resolution_clock::now();
+			unsigned long long totalDuration = 0;
 
-			quickSort(array);
+			for (int runIndex = 0; runIndex < numRuns; runIndex++)
+			{
+				const std::chrono::time_point timeBegin = std::chrono::high_resolution_clock::now();
 
-			const std::chrono::time_point timeEnd = std::chrono::high_resolution_clock::now();
+				quickSort(array);
 
-			std::cout << std::chrono::duration_cast<std::chrono::milliseconds>(timeEnd - timeBegin).count() / 1000.0f << " ms. ";
+				const std::chrono::time_point timeEnd = std::chrono::high_resolution_clock::now();
+
+				totalDuration += std::chrono::duration_cast<std::chrono::milliseconds>(timeEnd - timeBegin).count();
+			}
+
+			std::cout << (totalDuration / 1000.0f) / float(numRuns) << " ms. ";
 
 			std::cout << "Checking array for being sorted: ";
 
